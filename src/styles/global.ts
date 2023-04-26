@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import { colors } from '../styles/colors';
 
 export default createGlobalStyle`
   * {
@@ -9,21 +10,23 @@ export default createGlobalStyle`
   }
 
   body {
-    background: #FFFFFF;
-    color: #000000;
+    background: ${colors.grayscale.white};
+    color: ${colors.grayscale.black};
   }
 
-  body, input, button {
-    font-family: 'Poppins', serif;
-    font-size: 16px;
-  }
-
-  h1, h2, h3, h4, h5, h6, strong {
-    font-family: 'Lato', serif;
+  h1 {
+    font-family: 'Lato', sans-serif;
     font-weight: 700;
+    font-size: 24px;
+    line-height: 130%;
+    color: ${colors.grayscale.black};
   }
 
-  button {
-    cursor: pointer;
+  p {
+    font-family: 'Popping', sans-serif;
+    font-weight: 400;
+    line-height: 160%;
+    color: ${colors.grayscale.darkHigh};
+    font-size: 14px;
   }
 `;
