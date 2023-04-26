@@ -5,7 +5,7 @@ import * as S from './styles';
 const Cardapio: React.FC = () => {
   return (
     <S.Container>
-      <h1>Heloow</h1>
+      <h1>pro git</h1>
     </S.Container>
   );
 };
