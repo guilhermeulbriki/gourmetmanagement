@@ -1,11 +1,22 @@
-import React from 'react';
+import React from "react";
+import { text } from "stream/consumers";
+import sacola from '../../assets/shopping-bag.svg'
 
-import * as S from './styles';
+import * as S from "./styles";
 
 const Cardapio: React.FC = () => {
   return (
     <S.Container>
-      <h1>pro git</h1>
+      <S.Header>
+        <S.HeaderContent>
+          <div>
+            <h1>Bem vindo!</h1>
+          </div>
+
+          <img src={sacola} alt='Sacola' /> 
+        </S.HeaderContent>
+        <input type='text' placeholder="Buscar ..."/>
+      </S.Header>
     </S.Container>
   );
 };
