@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { colors } from "../../../styles/colors";
+import styled from 'styled-components';
+import { colors } from '../../styles/colors';
 
 export const ProductCard = styled.div`
   padding: 0 20px;
@@ -19,9 +19,13 @@ export const ProductCard = styled.div`
     }
 
     .description {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+
       p {
         display: -webkit-box;
-        -webkit-line-clamp: 2;  
+        -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -38,5 +42,5 @@ export const ProductCard = styled.div`
         color: ${colors.grayscale.black};
       }
     }
-  } 
+  }
 `;

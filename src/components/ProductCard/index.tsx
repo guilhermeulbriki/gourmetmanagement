@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 
-import addIcon from '../../../assets/add-icon.svg';
+import addIcon from '../../assets/add-icon.svg';
 
-import * as S from "./styles";
+import * as S from './styles';
 
 interface ProductCardProps {
   id: number;
@@ -11,11 +11,15 @@ interface ProductCardProps {
   price: string;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ thumbnail, desciption, price }) => {
+const ProductCard: React.FC<ProductCardProps> = ({
+  thumbnail,
+  desciption,
+  price,
+}) => {
   return (
     <S.ProductCard>
       <div className="content">
-        <img src={thumbnail} alt='thumbnail' />
+        <img src={thumbnail} alt="thumbnail" />
 
         <div className="description">
           <p>{desciption}</p>
@@ -23,7 +27,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ thumbnail, desciption, price 
         </div>
       </div>
 
-      <img src={addIcon} alt='addToCart' /> 
+      <img src={addIcon} alt="addToCart" />
     </S.ProductCard>
   );
 };

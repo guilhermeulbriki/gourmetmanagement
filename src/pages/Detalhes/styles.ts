@@ -1,7 +1,14 @@
-import styled from "styled-components";
-import { colors } from "../../styles/colors";
+import styled from 'styled-components';
+import { colors } from '../../styles/colors';
 
-export const Container = styled.div``;
+export const Container = styled.div`
+  hr {
+    width: 100%;
+    height: 0px;
+    border: 0.8px solid ${colors.grayscale.lowMedium};
+    margin: 16px 0;
+  }
+`;
 
 export const Header = styled.header`
   padding: 24px 20px 50px 20px;
@@ -14,7 +21,7 @@ export const HeaderContent = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  div{
+  div {
     display: flex;
     h1 {
       padding-left: 12px;
@@ -22,14 +29,14 @@ export const HeaderContent = styled.div`
     }
   }
 
-  img{
+  img {
     color: ${colors.grayscale.black};
   }
 `;
 
 export const Detalhes = styled.div`
   padding: 0 20px;
-  img{
+  img {
     height: 180px;
     width: 100%;
     filter: drop-shadow(0px 8px 32px rgba(24, 24, 25, 0.1));
@@ -37,50 +44,45 @@ export const Detalhes = styled.div`
   }
 
   div {
-    h1{
+    h1 {
       padding-top: 16px;
     }
 
-    p{
+    p {
       padding: 8px 0;
     }
 
-    span{
+    span {
       font-family: 'Poppins';
       font-weight: 600;
       font-size: 20px;
       line-height: 150%;
-      color: ${colors.primary}
+      color: ${colors.primary};
     }
   }
 `;
 
-export const Line = styled.div`
-  width: 100%;
-  height: 0px;
-  border: 1px solid ${colors.grayscale.lowMedium};
-  margin: 16px 0;
-`
-
 export const Ingredientes = styled.div`
   padding: 0 20px;
 
-  h1{
+  h1 {
     font-size: 18px;
     padding-bottom: 8px;
   }
-
-`
+`;
 export const Footer = styled.div`
   position: fixed;
-  bottom: 12px;
+  bottom: 0px;
+  padding-bottom: 12px;
   width: 100%;
-  section{
+  background: ${colors.grayscale.white};
+
+  section {
     padding: 0 20px;
     display: flex;
     justify-content: space-between;
 
-    .btnAdicionar{
+    .btnAdicionar {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -97,13 +99,13 @@ export const Footer = styled.div`
       line-height: 135%;
       color: ${colors.primary};
 
-      img{
+      img {
         padding-right: 8px;
         height: 20px;
       }
     }
 
-    .btnPedir{
+    .btnPedir {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -119,7 +121,6 @@ export const Footer = styled.div`
       font-size: 18px;
       line-height: 135%;
       color: ${colors.grayscale.white};
-    } 
+    }
   }
-  
-`
+`;

@@ -23,7 +23,7 @@ export default createGlobalStyle`
   }
 
   p {
-    font-family: 'Popping', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-weight: 400;
     line-height: 160%;
     color: ${colors.grayscale.darkHigh};
