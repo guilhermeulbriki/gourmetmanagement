@@ -24,6 +24,9 @@ const Cardapio: React.FC = () => {
       
       <S.ProductCardContainer>
         <ProductCard id={1} thumbnail={thumbnail} desciption="Feijoada da família brasileira tamanho grande" price="90,00" />
+        <ProductCard id={1} thumbnail={thumbnail} desciption="Feijoada da família brasileira tamanho grande" price="90,00" />
+        <ProductCard id={1} thumbnail={thumbnail} desciption="Feijoada da família brasileira tamanho grande" price="90,00" />
+        <ProductCard id={1} thumbnail={thumbnail} desciption="Feijoada da família brasileira tamanho grande" price="90,00" />
       </S.ProductCardContainer>
     </S.Container>
   );
