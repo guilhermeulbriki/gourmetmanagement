@@ -6,7 +6,7 @@ import detalhe from '../../assets/hamburger.png';
 
 import * as S from './styles';
 
-const Cardapio: React.FC = () => {
+const Detalhes: React.FC = () => {
   return (
     <S.Container>
       <S.Header>
@@ -54,4 +54,4 @@ const Cardapio: React.FC = () => {
   );
 };
 
-export default Cardapio;
+export default Detalhes;
