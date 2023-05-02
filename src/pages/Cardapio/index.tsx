@@ -5,15 +5,28 @@ import sacola from '../../assets/shopping-bag.svg';
 import search from '../../assets/search.svg';
 import thumbnail from '../../assets/img.png';
 
+import { useBag } from '../../hooks/Bag';
+
 import * as S from './styles';
 
 const Cardapio: React.FC = () => {
+  const { items } = useBag();
+
   return (
     <S.Container>
       <S.Header>
         <S.HeaderContent>
           <h1>Bem vindo!</h1>
-          <img src={sacola} alt="Sacola" />
+
+          <div className="bag">
+            <img src={sacola} alt="Sacola" />
+
+            {items > 0 && (
+              <div className="number">
+                <p>{items}</p>
+              </div>
+            )}
+          </div>
         </S.HeaderContent>
 
         <div>
