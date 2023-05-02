@@ -1,4 +1,7 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
+
+import { useBag } from '../../hooks/Bag';
 
 import addIcon from '../../assets/add-icon.svg';
 
@@ -16,9 +19,13 @@ const ProductCard: React.FC<ProductCardProps> = ({
   desciption,
   price,
 }) => {
+  const { addNewItem } = useBag();
+
+  const history = useHistory();
+
   return (
     <S.ProductCard>
-      <div className="content">
+      <div className="content" onClick={() => history.push('/detalhes')}>
         <img src={thumbnail} alt="thumbnail" />
 
         <div className="description">
@@ -27,7 +34,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         </div>
       </div>
 
-      <img src={addIcon} alt="addToCart" />
+      <img src={addIcon} alt="addToCart" onClick={addNewItem} />
     </S.ProductCard>
   );
 };

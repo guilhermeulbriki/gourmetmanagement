@@ -23,14 +23,47 @@ export const HeaderContent = styled.div`
 
   div {
     display: flex;
+
     h1 {
       padding-left: 12px;
       font-size: 16px;
     }
   }
 
-  img {
-    color: ${colors.grayscale.black};
+  .bag {
+    height: 40px;
+    width: 40px;
+
+    position: relative;
+
+    img {
+      color: ${colors.grayscale.black};
+    }
+
+    .number {
+      position: absolute;
+      height: 20px;
+      width: 20px;
+      right: 0;
+      bottom: 0;
+      background-color: ${colors.primary};
+      border-radius: 50%;
+      -webkit-appearance: none;
+      box-shadow: -4px -4px 4px rgba(0, 0, 0, 0.05);
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      p {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 18px;
+        text-align: center;
+        color: ${colors.grayscale.white};
+      }
+    }
   }
 `;
 

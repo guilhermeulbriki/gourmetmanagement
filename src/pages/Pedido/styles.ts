@@ -95,41 +95,44 @@ export const Footer = styled.div`
   padding-bottom: 12px;
   width: 100%;
   background: ${colors.grayscale.white};
-  display: flex;
-  justify-content: space-between;
-
-  section {
-    padding-left: 20px;
   
-    .total{
-      color: ${colors.grayscale.black};
-      opacity: 0.8;
+  div{
+    display: flex;
+    justify-content: space-between;
+
+    section {
+      padding-left: 20px;
+    
+      .total{
+        color: ${colors.grayscale.black};
+        opacity: 0.8;
+      }
+
+      .valorTotal{
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 150%;
+        color: ${colors.primary};
+      }
     }
 
-    .valorTotal{
-      font-weight: 600;
-      font-size: 20px;
-      line-height: 150%;
-      color: ${colors.primary};
-    }
-  }
+    .btnConfirmar {
+        margin-right: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 48%;
+        height: 48px;
 
-  .btnConfirmar {
-      margin-right: 20px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 48%;
-      height: 48px;
+        background: ${colors.primary};
+        border: None;
+        border-radius: 8px;
 
-      background: ${colors.primary};
-      border: None;
-      border-radius: 8px;
-
-      font-family: 'Lato';
-      font-weight: 700;
-      font-size: 18px;
-      line-height: 135%;
-      color: ${colors.grayscale.white};
+        font-family: 'Lato';
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 135%;
+        color: ${colors.grayscale.white};
+      }
     }
 `;

@@ -62,11 +62,14 @@ const Pedido: React.FC = () => {
       </S.Pedido>
 
       <S.Footer>
-        <section>
-          <p className='total'>Total:</p>
-          <p className='valorTotal'>R$ 120,00</p>
-        </section>
-        <button className="btnConfirmar">Confirmar</button> 
+        <hr></hr>
+        <div>
+          <section>
+            <p className='total'>Total:</p>
+            <p className='valorTotal'>R$ 120,00</p>
+          </section>
+          <button className="btnConfirmar">Confirmar</button> 
+        </div>
       </S.Footer>
     </S.Container>
   );
