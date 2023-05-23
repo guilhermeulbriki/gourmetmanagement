@@ -1,7 +1,11 @@
+import { colors } from './../../styles/colors';
 import styled from 'styled-components';
-import { colors } from '../../styles/colors';
 
-export const Container = styled.div``;
+export const Container = styled.div`
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+`;
 
 export const Header = styled.header`
   padding: 24px 20px 50px 20px;
@@ -121,6 +125,40 @@ export const ProductCard = styled.div`
         line-height: 150%;
         color: ${colors.grayscale.black};
       }
+    }
+  }
+`;
+
+export const LoadingError = styled.div`
+  width: 100%;
+  height: calc(100vh - 188px + 44px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+
+    p {
+      max-width: 265px;
+      width: 100%;
+      text-align: center;
+      font-size: 16px;
+      line-height: 160%;
+      color: ${colors.grayscale.black};
+    }
+
+    span {
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 130%;
+      text-decoration-line: underline;
+      color: #dc3c59;
     }
   }
 `;

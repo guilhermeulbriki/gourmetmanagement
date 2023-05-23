@@ -36,79 +36,77 @@ export const HeaderContent = styled.div`
 
 export const Pedido = styled.div`
   padding: 0 20px 32px 20px;
+`;
 
-
-`
 export const Item = styled.div`
   margin: 24px 0 24px 0;
   display: flex;
 
-  img{
+  img {
     width: 64px;
     height: 64px;
     border-radius: 8px;
   }
 
-  div{
+  div {
     margin-left: 16px;
-    .description{
+    .description {
       color: ${colors.grayscale.darkHigh};
       opacity: 0.8;
     }
 
-    .price{
+    .price {
       font-weight: 600;
       font-size: 16px;
       line-height: 150%;
       color: ${colors.grayscale.black};
     }
 
-    section{
+    section {
       display: flex;
       align-items: center;
       padding-top: 8px;
-      
-      .quantia{
+
+      .quantia {
         color: ${colors.grayscale.black};
         margin: 0 10px;
         width: 20px;
         text-align: center;
       }
 
-      button{
+      button {
         background-color: transparent;
         border: none;
-        
-        img{
+
+        img {
           width: 32px;
           height: 32px;
         }
-        
       }
     }
   }
+`;
 
-`
 export const Footer = styled.div`
   position: fixed;
   bottom: 0px;
   padding-bottom: 12px;
   width: 100%;
   background: ${colors.grayscale.white};
-  
-  div{
+
+  div {
     display: flex;
     justify-content: space-between;
 
     section {
       padding-left: 20px;
-    
-      .total{
+
+      .total {
         color: ${colors.grayscale.black};
         opacity: 0.8;
       }
 
-      .valorTotal{
+      .valorTotal {
         font-weight: 600;
         font-size: 20px;
         line-height: 150%;
@@ -117,22 +115,56 @@ export const Footer = styled.div`
     }
 
     .btnConfirmar {
-        margin-right: 20px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 48%;
-        height: 48px;
+      margin-right: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 48%;
+      height: 48px;
 
-        background: ${colors.primary};
-        border: None;
-        border-radius: 8px;
+      background: ${colors.primary};
+      border: None;
+      border-radius: 8px;
 
-        font-family: 'Lato';
-        font-weight: 700;
-        font-size: 18px;
-        line-height: 135%;
-        color: ${colors.grayscale.white};
-      }
+      font-family: 'Lato';
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 135%;
+      color: ${colors.grayscale.white};
     }
+  }
+`;
+
+export const LoadingError = styled.div`
+  width: 100%;
+  height: calc(100vh - 72px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+
+    p {
+      max-width: 265px;
+      width: 100%;
+      text-align: center;
+      font-size: 16px;
+      line-height: 160%;
+      color: ${colors.grayscale.black};
+    }
+
+    span {
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 130%;
+      text-decoration-line: underline;
+      color: #dc3c59;
+    }
+  }
 `;
