@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import ProductCard from '../../components/ProductCard';
 
 import sacola from '../../assets/shopping-bag.svg';
@@ -6,11 +6,27 @@ import search from '../../assets/search.svg';
 import thumbnail from '../../assets/img.png';
 
 import { useBag } from '../../hooks/Bag';
+import api from "../../services/api";
 
 import * as S from './styles';
 
+export interface ItensCardapio {
+    idpslist: number;
+    solutions: string;
+    problems: string;
+  }
+
 const Cardapio: React.FC = () => {
   const { items } = useBag();
+  const [itens_cardapio, setItens_Cardapio] = useState<ItensCardapio[]>([])
+
+
+  useEffect(() => {
+    api.get('/showProblemSolution').then((response) => {
+      const cardapio_aux = response.data
+      setItens_Cardapio(cardapio_aux)
+    })
+  },[])
 
   return (
     <S.Container>
@@ -36,12 +52,15 @@ const Cardapio: React.FC = () => {
       </S.Header>
 
       <S.ProductCardContainer>
-        <ProductCard
-          id={1}
-          thumbnail={thumbnail}
-          desciption="Feijoada da família brasileira tamanho grande"
-          price="90,00"
-        />
+        {itens_cardapio.map((item) => (
+          <ProductCard
+            id={item.idpslist}
+            thumbnail={thumbnail}
+            desciption={item.solutions}
+            price={item.problems}
+          />
+        ))}
+        
       </S.ProductCardContainer>
     </S.Container>
   );
