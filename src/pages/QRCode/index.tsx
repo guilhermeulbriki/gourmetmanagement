@@ -1,13 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { QrReader } from 'react-qr-reader';
 
-import QRcode from '../../components/QR_reader';
+const QrCode: React.FC = () => {
+  const [data, setData] = useState('No result');
 
-import * as S from './styles';
-
-const QRCode: React.FC = () => {
   return (
-    <QRcode />
+    <>
+      <QrReader
+        constraints={{}}
+        onResult={(result, error) => {
+          if (!!result) {
+            setData(result?.getText);
+          }
+
+          if (!!error) {
+            console.info(error);
+          }
+        }}
+      />
+      <p>{data}</p>
+    </>
   );
 };
 
-export default QRCode;
+export default QrCode;

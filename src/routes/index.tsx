@@ -13,7 +13,7 @@ const Routes: React.FC = () => (
     <Route component={Detalhes} path="/detalhes" exact />
     <Route component={Pedido} path="/pedido" exact />
     <Route component={Confirmado} path="/finish" exact />
-    {/* <Route component={QRCode} path="/qr" exact /> */}
+    <Route component={QRCode} path="/qr" exact />
   </Switch>
 );
 
