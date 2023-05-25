@@ -74,6 +74,7 @@ export const Detalhes = styled.div`
     width: 100%;
     filter: drop-shadow(0px 8px 32px rgba(24, 24, 25, 0.1));
     border-radius: 8px;
+    object-fit: cover;
   }
 
   div {
@@ -103,6 +104,7 @@ export const Ingredientes = styled.div`
     padding-bottom: 8px;
   }
 `;
+
 export const Footer = styled.div`
   position: fixed;
   bottom: 0px;
@@ -154,6 +156,40 @@ export const Footer = styled.div`
       font-size: 18px;
       line-height: 135%;
       color: ${colors.grayscale.white};
+    }
+  }
+`;
+
+export const LoadingError = styled.div`
+  width: 100%;
+  height: calc(100vh - 72px - 72px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+
+    p {
+      max-width: 265px;
+      width: 100%;
+      text-align: center;
+      font-size: 16px;
+      line-height: 160%;
+      color: ${colors.grayscale.black};
+    }
+
+    span {
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 130%;
+      text-decoration-line: underline;
+      color: #dc3c59;
     }
   }
 `;

@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Execute o comando npm install para instalar as dependências
-RUN npm install
+RUN yarn
 
 # Copie todo o código-fonte para o diretório de trabalho
 COPY . .
@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 3000
 
 # Inicie o aplicativo ReactJS
-CMD ["npm", "start"]
+CMD ["yarn", "start"]

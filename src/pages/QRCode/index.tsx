@@ -1,26 +1,26 @@
-import React, { useEffect, useRef } from "react";
-import Webcam from "react-webcam";
-import * as S from "./styles";
+import React, { useState } from 'react';
+import { QrReader } from 'react-qr-reader';
 
-const QRCode: React.FC = () => {
-  // const webcamRef = useRef<Webcam>(null);
+const QrCode: React.FC = () => {
+  const [data, setData] = useState('No result');
 
-  // useEffect(() => {
-  //   const requestCameraAccess = async () => {
-  //     try {
-  //       const mediaStream = await navigator.mediaDevices.getUserMedia({ video: true });
-  //       if (webcamRef.current?.video) {
-  //         webcamRef.current.video.srcObject = mediaStream;
-  //       }
-  //     } catch (error) {
-  //       console.log("Erro ao solicitar acesso à câmera:", error);
-  //     }
-  //   };
+  return (
+    <>
+      <QrReader
+        constraints={{}}
+        onResult={(result, error) => {
+          if (!!result) {
+            setData(result?.getText);
+          }
 
-  //   requestCameraAccess();
-  // }, []);
-
-  return <Webcam />;
+          if (!!error) {
+            console.info(error);
+          }
+        }}
+      />
+      <p>{data}</p>
+    </>
+  );
 };
 
-export default QRCode;
+export default QrCode;
