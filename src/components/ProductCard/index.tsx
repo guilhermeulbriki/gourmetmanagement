@@ -9,15 +9,16 @@ import * as S from './styles';
 
 interface ProductCardProps {
   id: number;
-  thumbnail: string;
-  desciption: string;
+  name: string;
   price: string;
+  thumbnail: string;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
   thumbnail,
-  desciption,
+  name,
   price,
+  id,
 }) => {
   const { addNewItem } = useBag();
 
@@ -25,11 +26,14 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
   return (
     <S.ProductCard>
-      <div className="content" onClick={() => history.push('/detalhes')}>
+      <div
+        className="content"
+        onClick={() => history.push('/detalhes', { id })}
+      >
         <img src={thumbnail} alt="thumbnail" />
 
         <div className="description">
-          <p>{desciption}</p>
+          <p>{name}</p>
           <span>R$ {price}</span>
         </div>
       </div>

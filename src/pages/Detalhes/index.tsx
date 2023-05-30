@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import Lottie from 'react-lottie';
 
 import back from '../../assets/vetor-back.svg';
@@ -9,14 +9,31 @@ import detalhe from '../../assets/hamburger.png';
 import loading from '../../assets/redLoading.json';
 
 import { useBag } from '../../hooks/Bag';
+import api from '../../services/api';
 
 import * as S from './styles';
 
-const Detalhes: React.FC = () => {
-  const { items, addNewItem } = useBag();
-  const [isErrored, setIsErrored] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+interface IProductDetail {
+  id: number;
+  nome: string;
+  valor: string;
+  thumbnail: string;
+  descricao: string;
+}
 
+const Detalhes: React.FC = () => {
+  const [pageStatus, setPageStatus] = useState<'loading' | 'error' | 'success'>(
+    'loading'
+  );
+  const [productDetails, setProductDetails] = useState<IProductDetail>(
+    {} as IProductDetail
+  );
+
+  const history = useHistory();
+  const location = useLocation<{ id: number }>();
+  const { items, addNewItem } = useBag();
+
+  const { id } = location.state;
   const loadingOptions = {
     loop: true,
     autoplay: true,
@@ -26,7 +43,22 @@ const Detalhes: React.FC = () => {
     },
   };
 
-  const history = useHistory();
+  const callApi = useCallback(async () => {
+    try {
+      setPageStatus('loading');
+      await api.get(`/cardapio/${id}`).then((response) => {
+        setProductDetails(response.data);
+      });
+    } catch (error) {
+      setPageStatus('error');
+    } finally {
+      setPageStatus('success');
+    }
+  }, [id]);
+
+  useEffect(() => {
+    callApi();
+  }, [callApi]);
 
   return (
     <S.Container>
@@ -49,13 +81,13 @@ const Detalhes: React.FC = () => {
         </S.HeaderContent>
       </S.Header>
 
-      {isErrored || isLoading ? (
+      {pageStatus !== 'success' ? (
         <S.LoadingError>
-          {isLoading && (
+          {pageStatus === 'loading' && (
             <Lottie options={loadingOptions} height={140} width={140} />
           )}
 
-          {isErrored && (
+          {pageStatus === 'error' && (
             <div className="error">
               <p>Ocorreu um erro ao tentar carregar os detalhes desse item</p>
               <span>Tentar novamente</span>
@@ -67,12 +99,9 @@ const Detalhes: React.FC = () => {
           <S.Detalhes>
             <img src={detalhe} alt="Detalhe" />
             <div>
-              <h1>Hamburguer duplo de costela com cheddar e bacon</h1>
-              <p>
-                Hamburguer do chefe, premiado mais de 10 vezes como o melhor
-                hamburguer da região.
-              </p>
-              <span>R$ 40,00</span>
+              <h1>{productDetails.nome}</h1>
+              <p>{productDetails.descricao}</p>
+              <span>R$ {productDetails.valor}</span>
             </div>
           </S.Detalhes>
 
@@ -80,10 +109,7 @@ const Detalhes: React.FC = () => {
 
           <S.Ingredientes>
             <h1>Ingredientes:</h1>
-            <p>
-              Pão de hamburguer, bacon, hamburguer de costela, cheedar, alface,
-              tomate, cebola e molho da casa.
-            </p>
+            <p>{productDetails.descricao}</p>
           </S.Ingredientes>
         </div>
       )}
