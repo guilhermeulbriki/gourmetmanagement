@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { QrReader } from "react-qr-reader";
-import adapter from 'webrtc-adapter';
+import React, { useState, useEffect } from 'react';
+import { QrReader } from 'react-qr-reader';
 
 function QRcode() {
-  const [result, setResult] = useState("No result");
+  const [result, setResult] = useState('No result');
 
   useEffect(() => {
     import('webrtc-adapter').then(({ default: adapter }) => {
@@ -12,7 +11,7 @@ function QRcode() {
   }, []);
 
   const handleScan = (data) => {
-    while(result == 'No result' || result == undefined){
+    while (result === 'No result' || result === undefined) {
       if (data) {
         setResult(data);
       }
@@ -34,9 +33,9 @@ function QRcode() {
         onError={handleError}
         onScan={handleScan}
         onResult={handleResult}
-        style={{ width: "100%" }}
+        style={{ width: '100%' }}
         constraints={{
-          facingMode: 'environment'
+          facingMode: 'environment',
         }}
       />
       <p>{result}</p>

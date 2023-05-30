@@ -10,6 +10,7 @@ import loading from '../../assets/redLoading.json';
 
 import { useBag } from '../../hooks/Bag';
 import api from '../../services/api';
+import { formatter } from '../../utils/formatPrice';
 
 import * as S from './styles';
 
@@ -101,7 +102,7 @@ const Detalhes: React.FC = () => {
             <div>
               <h1>{productDetails.nome}</h1>
               <p>{productDetails.descricao}</p>
-              <span>R$ {productDetails.valor}</span>
+              <span>{formatter.format(parseFloat(productDetails.valor))}</span>
             </div>
           </S.Detalhes>
 

@@ -10,7 +10,9 @@ import sacola from '../../assets/shopping-bag.svg';
 import search from '../../assets/search.svg';
 import thumbnail from '../../assets/img.png';
 import loading from '../../assets/redLoading.json';
+
 import api from '../../services/api';
+import { formatter } from '../../utils/formatPrice';
 
 import * as S from './styles';
 
@@ -109,10 +111,11 @@ const Cardapio: React.FC = () => {
         <S.ProductCardContainer>
           {itensCardapio.map((item) => (
             <ProductCard
+              key={item.id}
               id={item.id}
               thumbnail={thumbnail}
               name={item.nome}
-              price={item.valor}
+              price={formatter.format(parseFloat(item.valor))}
             />
           ))}
         </S.ProductCardContainer>
