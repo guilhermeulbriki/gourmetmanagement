@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import Lottie from 'react-lottie';
+import { useHistory } from 'react-router-dom';
 
 import ProductCard from '../../components/ProductCard';
 
@@ -10,28 +10,28 @@ import sacola from '../../assets/shopping-bag.svg';
 import search from '../../assets/search.svg';
 import thumbnail from '../../assets/img.png';
 import loading from '../../assets/redLoading.json';
-import api from "../../services/api";
+
+import api from '../../services/api';
+import { formatter } from '../../utils/formatPrice';
 
 import * as S from './styles';
 
 export interface ItensCardapio {
-  id: number,
-  nome: string,
-  ingredientes: string,
-  valor: string,
-  descricao: string,
-  // status: boolean,
-  // caminho: string
-  }
+  id: number;
+  nome: string;
+  valor: string;
+  thumbnail: string;
+}
 
 const Cardapio: React.FC = () => {
-  const { items } = useBag();
-  const [isErrored, setIsErrored] = useState(false);
-  const [isNoResult, setIsNoResult] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [pageStatus, setPageStatus] = useState<
+    'loading' | 'error' | 'success' | 'noResult'
+  >('loading');
   const [searchInput, setSearchInput] = useState('');
-  const [itens_cardapio, setItens_Cardapio] = useState<ItensCardapio[]>([])
+  const [itensCardapio, setItensCardapio] = useState<ItensCardapio[]>([]);
+
   const history = useHistory();
+  const { items } = useBag();
 
   const loadingOptions = {
     loop: true,
@@ -41,13 +41,23 @@ const Cardapio: React.FC = () => {
       preserveAspectRatio: 'xMidYMid slice',
     },
   };
-  
+
+  const callApi = async () => {
+    try {
+      setPageStatus('loading');
+      await api.get('/cardapio').then((response) => {
+        setItensCardapio(response.data);
+      });
+    } catch (error) {
+      setPageStatus('error');
+    } finally {
+      setPageStatus('success');
+    }
+  };
+
   useEffect(() => {
-    api.get('/cardapio').then((response) => {
-      const cardapio_aux = response.data
-      setItens_Cardapio(cardapio_aux)
-    })
-  },[])
+    callApi();
+  }, []);
 
   return (
     <S.Container>
@@ -77,20 +87,20 @@ const Cardapio: React.FC = () => {
         </div>
       </S.Header>
 
-      {isErrored || isNoResult || isLoading ? (
+      {pageStatus !== 'success' ? (
         <S.LoadingError>
-          {isLoading && (
+          {pageStatus === 'loading' && (
             <Lottie options={loadingOptions} height={140} width={140} />
           )}
 
-          {isErrored && (
+          {pageStatus === 'error' && (
             <div className="error">
               <p>Ocorreu um erro ao tentar carregar o cardápio</p>
-              <span>Tentar novamente</span>
+              <span onClick={callApi}>Tentar novamente</span>
             </div>
           )}
 
-          {isNoResult && (
+          {pageStatus === 'noResult' && (
             <div className="noResult">
               <p>Nenhum resultado encontrado</p>
               <span onClick={() => setSearchInput('')}>Limpar pesquisa</span>
@@ -99,14 +109,15 @@ const Cardapio: React.FC = () => {
         </S.LoadingError>
       ) : (
         <S.ProductCardContainer>
-         {itens_cardapio.map((item) => (
-          <ProductCard
-            id={item.id}
-            thumbnail={thumbnail}
-            desciption={item.nome}
-            price={item.valor}
-          />
-        ))}
+          {itensCardapio.map((item) => (
+            <ProductCard
+              key={item.id}
+              id={item.id}
+              thumbnail={thumbnail}
+              name={item.nome}
+              price={formatter.format(parseFloat(item.valor))}
+            />
+          ))}
         </S.ProductCardContainer>
       )}
     </S.Container>

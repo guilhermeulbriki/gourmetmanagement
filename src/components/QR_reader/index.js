@@ -1,15 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { QrReader } from "react-qr-reader";
-// import adapter from 'webrtc-adapter';
 
 function QRcode() {
   const [result, setResult] = useState("No result");
-
-  // useEffect(() => {
-  //   import('webrtc-adapter').then(({ default: adapter }) => {
-  //     adapter.browserDetails.browser === 'safari' && adapter.browserShim(); // Executa o polyfill somente para o Safari
-  //   });
-  // }, []);
 
   const handleScan = (data) => {
     while(result == 'No result' || result == undefined){

@@ -1,23 +1,20 @@
-# Base image
+# Use uma imagem base do Node.js
 FROM node:alpine
 
-# Set the working directory in the container
+# Defina o diretório de trabalho dentro do contêiner
 WORKDIR /app
 
-# Copy package.json and yarn.lock to the working directory
-COPY package.json yarn.lock ./
+# Copie o arquivo package.json e o arquivo package-lock.json (se existir)
+COPY package*.json ./
 
-# Install dependencies
-RUN yarn install
+# Execute o comando npm install para instalar as dependências
+RUN yarn
 
-# Copy the remaining application code
+# Copie todo o código-fonte para o diretório de trabalho
 COPY . .
 
-# Build the React app
-# RUN yarn build
-
-# Expose the desired port (e.g., 3000 for React development server)
+# Exponha a porta 3000 para acesso externo
 EXPOSE 3000
 
-# Define the command to run the React app
+# Inicie o aplicativo ReactJS
 CMD ["yarn", "start"]
