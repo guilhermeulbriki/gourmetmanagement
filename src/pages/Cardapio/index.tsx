@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Lottie from 'react-lottie';
+// import Lottie from 'react-lottie';
 import { useHistory } from 'react-router-dom';
 
 import ProductCard from '../../components/ProductCard';
@@ -79,9 +79,9 @@ const Cardapio: React.FC = () => {
 
       {isErrored || isNoResult || isLoading ? (
         <S.LoadingError>
-          {isLoading && (
-            <Lottie options={loadingOptions} height={140} width={140} />
-          )}
+          {/* {isLoading && (
+            // <Lottie options={loadingOptions} height={140} width={140} />
+          )} */}
 
           {isErrored && (
             <div className="error">

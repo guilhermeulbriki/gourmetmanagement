@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import Lottie from 'react-lottie';
+// import Lottie from 'react-lottie';
 
 import back from '../../assets/vetor-back.svg';
 import pedido from '../../assets/pedido.png';
@@ -41,9 +41,9 @@ const Pedido: React.FC = () => {
 
       {isErrored || isLoading ? (
         <S.LoadingError>
-          {isLoading && (
+          {/* {isLoading && (
             <Lottie options={loadingOptions} height={140} width={140} />
-          )}
+          )} */}
 
           {isErrored && (
             <div className="error">
