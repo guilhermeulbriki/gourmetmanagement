@@ -32,7 +32,7 @@ const Detalhes: React.FC = () => {
 
   const history = useHistory();
   const location = useLocation<{ id: number }>();
-  const { items, addNewItem } = useBag();
+  const { bagQuantity, addNewItem } = useBag();
 
   const { id } = location.state;
   const loadingOptions = {
@@ -73,9 +73,9 @@ const Detalhes: React.FC = () => {
           <div className="bag" onClick={() => history.push('/pedido')}>
             <img src={sacola} alt="Sacola" />
 
-            {items > 0 && (
+            {bagQuantity > 0 && (
               <div className="number">
-                <p>{items}</p>
+                <p>{bagQuantity}</p>
               </div>
             )}
           </div>
@@ -118,7 +118,12 @@ const Detalhes: React.FC = () => {
       <S.Footer>
         <hr></hr>
         <section>
-          <button className="btnAdicionar" onClick={addNewItem}>
+          <button
+            className="btnAdicionar"
+            onClick={() =>
+              addNewItem(productDetails.id, parseFloat(productDetails.valor))
+            }
+          >
             <img src={sacolaBigger} alt="Sacola" />
             Adicionar
           </button>

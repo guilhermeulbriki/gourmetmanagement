@@ -12,7 +12,6 @@ import thumbnail from '../../assets/img.png';
 import loading from '../../assets/redLoading.json';
 
 import api from '../../services/api';
-import { formatter } from '../../utils/formatPrice';
 
 import * as S from './styles';
 
@@ -31,7 +30,7 @@ const Cardapio: React.FC = () => {
   const [itensCardapio, setItensCardapio] = useState<ItensCardapio[]>([]);
 
   const history = useHistory();
-  const { items } = useBag();
+  const { bagQuantity } = useBag();
 
   const loadingOptions = {
     loop: true,
@@ -89,9 +88,9 @@ const Cardapio: React.FC = () => {
           <div className="bag" onClick={() => history.push('/pedido')}>
             <img src={sacola} alt="Sacola" />
 
-            {items > 0 && (
+            {bagQuantity > 0 && (
               <div className="number">
-                <p>{items}</p>
+                <p>{bagQuantity}</p>
               </div>
             )}
           </div>
@@ -136,7 +135,7 @@ const Cardapio: React.FC = () => {
               id={item.id}
               thumbnail={thumbnail}
               name={item.nome}
-              price={formatter.format(parseFloat(item.valor))}
+              price={item.valor}
             />
           ))}
         </S.ProductCardContainer>

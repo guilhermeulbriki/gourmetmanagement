@@ -1,32 +1,30 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import Lottie from 'react-lottie';
 
 import back from '../../assets/vetor-back.svg';
-import pedido from '../../assets/pedido.png';
-import menos from '../../assets/btn_menos.svg';
-import mais from '../../assets/btn_mais.svg';
-import loading from '../../assets/redLoading.json';
+
+import { useBag } from '../../hooks/Bag';
 
 import * as S from './styles';
+import BagItem from '../../components/BagItem';
 
 const Pedido: React.FC = () => {
+  const [pageStatus, setPageStatus] = useState<'success' | 'noResult'>(
+    'success'
+  );
+
   const history = useHistory();
-  const [isErrored, setIsErrored] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const { bagItems, getTotalPrice } = useBag();
+
+  useEffect(() => {
+    if (bagItems.length < 1) {
+      setPageStatus('noResult');
+    }
+  }, [bagItems]);
 
   const handleConfirm = useCallback(() => {
     history.push('/finish');
   }, [history]);
-
-  const loadingOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: loading,
-    rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice',
-    },
-  };
 
   return (
     <S.Container>
@@ -39,16 +37,12 @@ const Pedido: React.FC = () => {
         </S.HeaderContent>
       </S.Header>
 
-      {isErrored || isLoading ? (
+      {pageStatus !== 'success' ? (
         <S.LoadingError>
-          {isLoading && (
-            <Lottie options={loadingOptions} height={140} width={140} />
-          )}
-
-          {isErrored && (
-            <div className="error">
-              <p>Ocorreu um erro ao tentar carregar o seu pedido</p>
-              <span>Tentar novamente</span>
+          {pageStatus === 'noResult' && (
+            <div className="noResult">
+              <p>Você ainda não adicionou nenhum item no seu pedido</p>
+              <span onClick={() => history.push('/')}>Ver cardápio</span>
             </div>
           )}
         </S.LoadingError>
@@ -57,42 +51,9 @@ const Pedido: React.FC = () => {
           <S.Pedido>
             <h1>Seu Pedido</h1>
 
-            <S.Item>
-              <img src={pedido} alt="Pedido" />
-
-              <div>
-                <p className="description">Porção de alguma coisa que ...</p>
-                <p className="price">R$ 65,00</p>
-
-                <section>
-                  <button>
-                    <img src={menos} alt="Menos" />
-                  </button>
-                  <p className="quantia">1</p>
-                  <button>
-                    <img src={mais} alt="Mais" />
-                  </button>
-                </section>
-              </div>
-            </S.Item>
-            <S.Item>
-              <img src={pedido} alt="Pedido" />
-
-              <div>
-                <p className="description">Porção de alguma coisa que ...</p>
-                <p className="price">R$ 65,00</p>
-
-                <section>
-                  <button>
-                    <img src={menos} alt="Menos" />
-                  </button>
-                  <p className="quantia">1</p>
-                  <button>
-                    <img src={mais} alt="Mais" />
-                  </button>
-                </section>
-              </div>
-            </S.Item>
+            {bagItems.map((item) => (
+              <BagItem key={item.id} id={item.id} />
+            ))}
           </S.Pedido>
 
           <S.Footer>
@@ -100,7 +61,7 @@ const Pedido: React.FC = () => {
             <div>
               <section>
                 <p className="total">Total:</p>
-                <p className="valorTotal">R$ 120,00</p>
+                <p className="valorTotal">{getTotalPrice()}</p>
               </section>
               <button onClick={handleConfirm} className="btnConfirmar">
                 Confirmar

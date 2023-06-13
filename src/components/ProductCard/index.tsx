@@ -6,6 +6,7 @@ import { useBag } from '../../hooks/Bag';
 import addIcon from '../../assets/add-icon.svg';
 
 import * as S from './styles';
+import { formatter } from '../../utils/formatPrice';
 
 interface ProductCardProps {
   id: number;
@@ -34,11 +35,15 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
         <div className="description">
           <p>{name}</p>
-          <span>{price}</span>
+          <span>{formatter.format(parseFloat(price))}</span>
         </div>
       </div>
 
-      <img src={addIcon} alt="addToCart" onClick={addNewItem} />
+      <img
+        src={addIcon}
+        alt="addToCart"
+        onClick={() => addNewItem(id, parseFloat(price))}
+      />
     </S.ProductCard>
   );
 };
