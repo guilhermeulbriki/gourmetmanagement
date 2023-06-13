@@ -45,14 +45,35 @@ const Cardapio: React.FC = () => {
   const callApi = async () => {
     try {
       setPageStatus('loading');
-      await api.get('/cardapio').then((response) => {
-        setItensCardapio(response.data);
-      });
+      const response = await api.get('/cardapio');
+      setItensCardapio(response.data);
     } catch (error) {
       setPageStatus('error');
     } finally {
       setPageStatus('success');
     }
+  };
+
+  const searchitems = async (search: string) => {
+    setSearchInput(search);
+
+    if (search) {
+      try {
+        setPageStatus('loading');
+        const response = await api.get(`/cardapio/buscar/${search}`);
+        setItensCardapio(response.data);
+        setPageStatus('success');
+      } catch (error) {
+        setPageStatus('noResult');
+      }
+    } else {
+      await callApi();
+    }
+  };
+
+  const cleanSearch = async () => {
+    setSearchInput('');
+    callApi();
   };
 
   useEffect(() => {
@@ -81,7 +102,7 @@ const Cardapio: React.FC = () => {
           <input
             type="text"
             placeholder="Buscar ..."
-            onChange={(e) => setSearchInput(e.target.value)}
+            onChange={(e) => searchitems(e.target.value)}
             value={searchInput}
           />
         </div>
@@ -103,7 +124,7 @@ const Cardapio: React.FC = () => {
           {pageStatus === 'noResult' && (
             <div className="noResult">
               <p>Nenhum resultado encontrado</p>
-              <span onClick={() => setSearchInput('')}>Limpar pesquisa</span>
+              <span onClick={cleanSearch}>Limpar pesquisa</span>
             </div>
           )}
         </S.LoadingError>
