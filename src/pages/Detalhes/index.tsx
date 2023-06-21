@@ -128,7 +128,9 @@ const Detalhes: React.FC = () => {
             Adicionar
           </button>
 
-          <button className="btnPedir">Pedir agora</button>
+          <button onClick={() => history.push('/qr')} className="btnPedir">
+            Pedir agora
+          </button>
         </section>
       </S.Footer>
     </S.Container>

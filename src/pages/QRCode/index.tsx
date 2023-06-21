@@ -1,9 +1,21 @@
 import React from 'react';
-import QRcode from '../../components/QR_reader';
+import { useHistory } from 'react-router-dom';
+
+import { ReactComponent as Back } from '../../assets/close.svg';
+
+import * as S from './styles';
+
+import QRCodeComponent from '../../components/QRCode';
 
 const QrCode: React.FC = () => {
+  const history = useHistory();
+
   return (
-    <QRcode />
+    <S.Container>
+      <Back onClick={() => history.goBack()} className="back" />
+
+      <QRCodeComponent />
+    </S.Container>
   );
 };
 

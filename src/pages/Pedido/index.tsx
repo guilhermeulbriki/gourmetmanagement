@@ -23,7 +23,7 @@ const Pedido: React.FC = () => {
   }, [bagItems]);
 
   const handleConfirm = useCallback(() => {
-    history.push('/finish');
+    history.push('/qr');
   }, [history]);
 
   return (
