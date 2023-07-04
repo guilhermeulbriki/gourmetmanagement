@@ -1,12 +1,19 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
+import { useBag } from '../../hooks/Bag';
 import check from '../../assets/check.svg';
 
 import * as S from './styles';
 
 const Confirmado: React.FC = () => {
   const history = useHistory();
+  const { resetCart, bagQuantity, getTotalPrice } = useBag();
+
+  const goBackToHome = () => {
+    resetCart();
+    history.push('/');
+  };
 
   return (
     <S.Container>
@@ -24,11 +31,11 @@ const Confirmado: React.FC = () => {
 
             <div>
               <p className="numeroItens">Número de itens</p>
-              <p className="itens">10 itens</p>
+              <p className="itens">{bagQuantity} itens</p>
             </div>
             <div>
               <p className="numeroItens">Total do pedido</p>
-              <p className="itens">R$ 120,00</p>
+              <p className="itens">{getTotalPrice()}</p>
             </div>
           </section>
         </S.Card>
@@ -37,9 +44,7 @@ const Confirmado: React.FC = () => {
       <S.Footer>
         <hr></hr>
         <div>
-          <button onClick={() => history.push('/')}>
-            Ver cardápio novamente
-          </button>
+          <button onClick={goBackToHome}>Ver cardápio novamente</button>
         </div>
       </S.Footer>
     </S.Container>

@@ -5,12 +5,12 @@ import Lottie from 'react-lottie';
 import back from '../../assets/vetor-back.svg';
 import sacola from '../../assets/shopping-bag-red.svg';
 import sacolaBigger from '../../assets/shopping-bag-red-bigger.svg';
-import detalhe from '../../assets/hamburger.png';
 import loading from '../../assets/redLoading.json';
 
 import { useBag } from '../../hooks/Bag';
 import api from '../../services/api';
 import { formatter } from '../../utils/formatPrice';
+import { getImage } from '../../utils/getImage';
 
 import * as S from './styles';
 
@@ -18,8 +18,9 @@ interface IProductDetail {
   id: number;
   nome: string;
   valor: string;
-  thumbnail: string;
+  caminho: string;
   descricao: string;
+  ingredientes: string;
 }
 
 const Detalhes: React.FC = () => {
@@ -29,6 +30,7 @@ const Detalhes: React.FC = () => {
   const [productDetails, setProductDetails] = useState<IProductDetail>(
     {} as IProductDetail
   );
+  const [image, setImage] = useState('');
 
   const history = useHistory();
   const location = useLocation<{ id: number }>();
@@ -47,9 +49,10 @@ const Detalhes: React.FC = () => {
   const callApi = useCallback(async () => {
     try {
       setPageStatus('loading');
-      await api.get(`/cardapio/${id}`).then((response) => {
-        setProductDetails(response.data);
-      });
+      const response = await api.get(`/cardapio/${id}`);
+      setProductDetails(response.data);
+      const imageResponse = await getImage(response.data.caminho);
+      setImage(imageResponse);
     } catch (error) {
       setPageStatus('error');
     } finally {
@@ -60,6 +63,11 @@ const Detalhes: React.FC = () => {
   useEffect(() => {
     callApi();
   }, [callApi]);
+
+  const orderNow = () => {
+    addNewItem(productDetails.id, parseFloat(productDetails.valor));
+    history.push('/pedido');
+  };
 
   return (
     <S.Container>
@@ -98,7 +106,7 @@ const Detalhes: React.FC = () => {
       ) : (
         <div className="product-content">
           <S.Detalhes>
-            <img src={detalhe} alt="Detalhe" />
+            <img src={image} alt="Detalhe" />
             <div>
               <h1>{productDetails.nome}</h1>
               <p>{productDetails.descricao}</p>
@@ -110,7 +118,7 @@ const Detalhes: React.FC = () => {
 
           <S.Ingredientes>
             <h1>Ingredientes:</h1>
-            <p>{productDetails.descricao}</p>
+            <p>{productDetails.ingredientes}</p>
           </S.Ingredientes>
         </div>
       )}
@@ -128,7 +136,7 @@ const Detalhes: React.FC = () => {
             Adicionar
           </button>
 
-          <button onClick={() => history.push('/qr')} className="btnPedir">
+          <button onClick={orderNow} className="btnPedir">
             Pedir agora
           </button>
         </section>

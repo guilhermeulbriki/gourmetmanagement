@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
-import pedido from '../../assets/pedido.png';
 import menos from '../../assets/btn_menos.svg';
 import mais from '../../assets/btn_mais.svg';
 
 import { useBag } from '../../hooks/Bag';
 
 import { formatter } from '../../utils/formatPrice';
+import { getImage } from '../../utils/getImage';
 import api from '../../services/api';
 
 import * as S from './styles';
@@ -18,18 +18,21 @@ interface BagItemProps {
 interface ItemDetails {
   nome: string;
   valor: string;
-  thumbnail: string;
+  caminho: string;
 }
 
 const BagItem: React.FC<BagItemProps> = ({ id }) => {
   const [itemDetails, setItemDetails] = useState<ItemDetails>(
     {} as ItemDetails
   );
+  const [image, setImage] = useState('');
 
   const callApi = async () => {
     const response = await api.get(`/cardapio/${id}`);
-
     setItemDetails(response.data);
+
+    const imageResponse = await getImage(response.data.caminho);
+    setImage(imageResponse);
   };
 
   useEffect(() => {
@@ -40,7 +43,7 @@ const BagItem: React.FC<BagItemProps> = ({ id }) => {
 
   return (
     <S.Container>
-      <img src={pedido} alt="Pedido" />
+      <img src={image} alt="Pedido" />
 
       <div>
         <p className="description">{itemDetails.nome}</p>

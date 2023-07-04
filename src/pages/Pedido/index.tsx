@@ -1,12 +1,13 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import back from '../../assets/vetor-back.svg';
+import BagItem from '../../components/BagItem';
 
 import { useBag } from '../../hooks/Bag';
+import api from '../../services/api';
 
 import * as S from './styles';
-import BagItem from '../../components/BagItem';
 
 const Pedido: React.FC = () => {
   const [pageStatus, setPageStatus] = useState<'success' | 'noResult'>(
@@ -22,9 +23,25 @@ const Pedido: React.FC = () => {
     }
   }, [bagItems]);
 
-  const handleConfirm = useCallback(() => {
-    history.push('/qr');
-  }, [history]);
+  const handleConfirm = async () => {
+    try {
+      await Promise.all(
+        bagItems.map(async (item) => {
+          await api.post('/pedido', {
+            status: 'Em andamento',
+            quantidade: item.quantity,
+            cardapio: item.id,
+            comanda: 1,
+            mesa: 1,
+          });
+        })
+      );
+
+      history.push('/finish');
+    } catch (error) {
+      alert(error);
+    }
+  };
 
   return (
     <S.Container>

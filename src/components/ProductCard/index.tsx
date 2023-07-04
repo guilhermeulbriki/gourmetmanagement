@@ -1,26 +1,38 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { useBag } from '../../hooks/Bag';
 
 import addIcon from '../../assets/add-icon.svg';
 
-import * as S from './styles';
 import { formatter } from '../../utils/formatPrice';
+import { getImage } from '../../utils/getImage';
+import * as S from './styles';
 
 interface ProductCardProps {
   id: number;
   name: string;
   price: string;
-  thumbnail: string;
+  caminho: string;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
-  thumbnail,
+  caminho,
   name,
   price,
   id,
 }) => {
+  const [image, setImage] = useState('');
+
+  useEffect(() => {
+    getImageFunction();
+  }, []);
+
+  const getImageFunction = async () => {
+    const response = await getImage(caminho);
+    setImage(response);
+  };
+
   const { addNewItem } = useBag();
 
   const history = useHistory();
@@ -31,7 +43,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         className="content"
         onClick={() => history.push('/detalhes', { id })}
       >
-        <img src={thumbnail} alt="thumbnail" />
+        <img src={image} alt="thumbnail" />
 
         <div className="description">
           <p>{name}</p>

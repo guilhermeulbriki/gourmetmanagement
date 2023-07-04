@@ -8,7 +8,6 @@ import { useBag } from '../../hooks/Bag';
 
 import sacola from '../../assets/shopping-bag.svg';
 import search from '../../assets/search.svg';
-import thumbnail from '../../assets/img.png';
 import loading from '../../assets/redLoading.json';
 
 import api from '../../services/api';
@@ -19,7 +18,7 @@ export interface ItensCardapio {
   id: number;
   nome: string;
   valor: string;
-  thumbnail: string;
+  caminho: string;
 }
 
 const Cardapio: React.FC = () => {
@@ -100,7 +99,7 @@ const Cardapio: React.FC = () => {
           <img src={search} className="searchIcon" alt="Pesquisa" />
           <input
             type="text"
-            placeholder="Buscar ..."
+            placeholder="Qual a sua fome hoje?"
             onChange={(e) => searchitems(e.target.value)}
             value={searchInput}
           />
@@ -133,7 +132,7 @@ const Cardapio: React.FC = () => {
             <ProductCard
               key={item.id}
               id={item.id}
-              thumbnail={thumbnail}
+              caminho={item.caminho}
               name={item.nome}
               price={item.valor}
             />

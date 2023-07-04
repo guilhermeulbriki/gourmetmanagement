@@ -15,6 +15,7 @@ interface BagContextData {
   bagQuantity: number;
   bagItems: Items[];
   getTotalPrice: () => string;
+  resetCart(): void;
 }
 
 interface BagProviderData {
@@ -78,6 +79,10 @@ export const BagProvider: React.FC<BagProviderData> = ({ children }) => {
     );
   };
 
+  const resetCart = () => {
+    setItems([]);
+  };
+
   return (
     <BagContext.Provider
       value={{
@@ -87,6 +92,7 @@ export const BagProvider: React.FC<BagProviderData> = ({ children }) => {
         bagItems: items,
         bagQuantity,
         getTotalPrice,
+        resetCart,
       }}
     >
       {children}

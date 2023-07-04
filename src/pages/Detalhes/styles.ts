@@ -69,6 +69,7 @@ export const HeaderContent = styled.div`
 
 export const Detalhes = styled.div`
   padding: 0 20px;
+
   img {
     height: 180px;
     width: 100%;

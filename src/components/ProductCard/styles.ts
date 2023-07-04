@@ -16,6 +16,8 @@ export const ProductCard = styled.div`
     img {
       height: 64px;
       width: 64px;
+      border-radius: 8px;
+      object-fit: cover;
     }
 
     .description {

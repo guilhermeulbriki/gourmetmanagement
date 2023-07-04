@@ -10,6 +10,7 @@ export const Container = styled.div`
     width: 64px;
     height: 64px;
     border-radius: 8px;
+    object-fit: cover;
   }
 
   div {
